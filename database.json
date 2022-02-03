@@ -1,0 +1,7 @@
+{
+"host" : "management-tutorial.ctubek5rk0ol.us-east-1.rds.amazonaws.com",
+"user" : "user",
+"password" : "dlgusrjf1!",
+"port" : "3306",
+"database" :  "management"
+}

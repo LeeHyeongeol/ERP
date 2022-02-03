@@ -34,13 +34,13 @@ function App(props) {
   const [completed, setCompleted] = useState(0) //게이지가 0-100 까지 차는 로딩변수를 사용할 것이기 때문에 초기값을 0으로 설정한다.
 
 
-  // setInterval(() => progress(), 20)
+  setInterval(() => progress(), 20)
   useEffect(() => {
     setInterval(() => {
       if (completed >= 100) {
-        completed = 0
+        setCompleted(0)
       } else {
-        completed += 1;
+        setCompleted(completed + 1);
       }
     })
     console.log(completed)
