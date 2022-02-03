@@ -6,6 +6,7 @@ import TableHead from '@material-ui/core/TableHead';
 import TableBody from '@material-ui/core/TableBody';
 import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
+import CircularProgress from '@material-ui/core/CircularProgress'
 import { withStyles } from '@material-ui/core/styles'
 import { useEffect, useState } from 'react';
 
@@ -19,6 +20,9 @@ const styles = theme => ({
   },
   table: {
     minWidth: 1080
+  },
+  progress: {
+    margin: theme.spacing.unit * 2
   }
 })
 
@@ -27,9 +31,19 @@ function App(props) {
 
   const [customers, setCustomers] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [completed, setCompleted] = useState(0) //게이지가 0-100 까지 차는 로딩변수를 사용할 것이기 때문에 초기값을 0으로 설정한다.
 
 
+  // setInterval(() => progress(), 20)
   useEffect(() => {
+    setInterval(() => {
+      if (completed >= 100) {
+        completed = 0
+      } else {
+        completed += 1;
+      }
+    })
+    console.log(completed)
     callApi()
       .then(result => setCustomers(result))
   }, []);
@@ -40,12 +54,21 @@ function App(props) {
     return body;
   }
 
+  const progress = () => {
+    if (completed >= 100) {
+      setCompleted(0)
+    } else {
+      setCompleted(completed + 1)
+      // }
+    }
+  }
 
   const { classes } = props;
 
   return (
     <Paper className={classes.root}>
       {console.log(customers)}
+      {console.log(completed)}
       <Table className={classes.table}>
         <TableHead>
           <TableRow>
@@ -73,7 +96,11 @@ function App(props) {
                 />
               );
             })
-          ) : "customer가 없습니다."}
+          ) : <TableRow>
+            <TableCell colSpan='6' align="center">
+              <CircularProgress className={classes.progress} variant="indeterminate" value={completed} />
+            </TableCell>
+          </TableRow>}
         </TableBody>
       </Table>
     </Paper>
