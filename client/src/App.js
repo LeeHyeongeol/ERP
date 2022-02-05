@@ -34,8 +34,17 @@ function App(props) {
   const [isLoading, setIsLoading] = useState(true);
   const [completed, setCompleted] = useState(0) //게이지가 0-100 까지 차는 로딩변수를 사용할 것이기 때문에 초기값을 0으로 설정한다.
 
+  //고객리스트만 업데이트 하는 컴포넌트.
+  const stateRefresh = () => {
+    setCustomers('');
+    setCompleted(0)
+    callApi().
+      then(result => setCustomers(result))
+  }
+
 
   setInterval(() => progress(), 20)
+
   useEffect(() => {
     setInterval(() => {
       if (completed >= 100) {
@@ -106,7 +115,7 @@ function App(props) {
           </TableBody>
         </Table>
       </Paper>
-      <CustomerAdd />
+      <CustomerAdd stateRefresh={stateRefresh} />
     </div>
   );
 }
