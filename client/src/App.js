@@ -1,5 +1,6 @@
 import './App.css';
 import Customer from './components/Customer';
+import CustomerAdd from './components/CustomerAdd';
 import Paper from '@material-ui/core/Paper';
 import Table from '@material-ui/core/Table';
 import TableHead from '@material-ui/core/TableHead';
@@ -66,44 +67,47 @@ function App(props) {
   const { classes } = props;
 
   return (
-    <Paper className={classes.root}>
-      {console.log(customers)}
-      {console.log(completed)}
-      <Table className={classes.table}>
-        <TableHead>
-          <TableRow>
-            <TableCell>번호</TableCell>
-            <TableCell>이미지</TableCell>
-            <TableCell>이름</TableCell>
-            <TableCell>생년월일</TableCell>
-            <TableCell>성별</TableCell>
-            <TableCell>직업</TableCell>
-          </TableRow>
-        </TableHead>
+    <div>
+      <Paper className={classes.root}>
+        {console.log(customers)}
+        {console.log(completed)}
+        <Table className={classes.table}>
+          <TableHead>
+            <TableRow>
+              <TableCell>번호</TableCell>
+              <TableCell>이미지</TableCell>
+              <TableCell>이름</TableCell>
+              <TableCell>생년월일</TableCell>
+              <TableCell>성별</TableCell>
+              <TableCell>직업</TableCell>
+            </TableRow>
+          </TableHead>
 
-        <TableBody>
-          {customers ? (
-            customers.map((info, idx) => {
-              return (
-                <Customer
-                  key={idx}
-                  id={info.id}
-                  image={info.image}
-                  name={info.name}
-                  birthday={info.birthday}
-                  gender={info.gender}
-                  job={info.job}
-                />
-              );
-            })
-          ) : <TableRow>
-            <TableCell colSpan='6' align="center">
-              <CircularProgress className={classes.progress} variant="indeterminate" value={completed} />
-            </TableCell>
-          </TableRow>}
-        </TableBody>
-      </Table>
-    </Paper>
+          <TableBody>
+            {customers ? (
+              customers.map((info, idx) => {
+                return (
+                  <Customer
+                    key={idx}
+                    id={info.id}
+                    image={info.image}
+                    name={info.name}
+                    birthday={info.birthday}
+                    gender={info.gender}
+                    job={info.job}
+                  />
+                );
+              })
+            ) : <TableRow>
+              <TableCell colSpan='6' align="center">
+                <CircularProgress className={classes.progress} variant="indeterminate" value={completed} />
+              </TableCell>
+            </TableRow>}
+          </TableBody>
+        </Table>
+      </Paper>
+      <CustomerAdd />
+    </div>
   );
 }
 
